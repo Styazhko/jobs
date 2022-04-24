@@ -16,14 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from jobs.views import index_view, company_view, vacancy_view, vacancies_view
-
+from jobs.views import index_view, company_view, vacancy_view, vacancies_view, vacancies_cat_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
-    path('vacancies/cat/<str:specialties>/', vacancies_view, name='vacancies'),
+    path('vacancies/cat/<str:code>/', vacancies_cat_view, name='vacancies_cat_name'),
     path('vacancies/', vacancies_view, name='vacancies'),
-    path('companies/<int:id>/', company_view, name='companies'),
-    path('vacancies/<int:id>/', vacancy_view, name='vacancies'),
+    path('companies/<int:id>/', company_view, name='companies_name'),
+    path('vacancies/<int:id>/', vacancy_view, name='vacancies_num'),
 ]

@@ -5,11 +5,35 @@ from jobs.models import Specialty, Vacancy, Company
 
 class Command(BaseCommand):
 
-
     def handle(self, *args, **options):
-        for i in specialties:
-            specialty = Specialty.objects.create(code = i['code'], title = i['title'])
-        for j in companies:
-            company = Company.objects.create(name = j['title'], logo = j['logo'], employee_count = j['employee_count'], description = j['description'])
-        for k in jobs:
-            vacancy = Vacancy.objects.create(title = k['title'], specialty = k['specialty'], company = k['company'], salary_min = k['salary_from'], salary_max = k['salary_to'], published_at = k['posted'], skills = k['skills'], description = k['description'])
+        Company.objects.all().delete()
+        Vacancy.objects.all().delete()
+        Specialty.objects.all().delete()
+
+        for special in specialties:
+            specialty = Specialty.objects.create(
+                code=special['code'],
+                title=special['title'],
+            )
+
+        for comp in companies:
+            company = Company.objects.create(
+                id=comp['id'],
+                name=comp['title'],
+                logo=comp['logo'],
+                employee_count=comp['employee_count'],
+                description=comp['description'],
+                location=comp['location']
+            )
+
+        for job in jobs:
+            vacancy = Vacancy.objects.create(
+                title=job['title'],
+                specialty=Specialty.objects.get(code=job['specialty']),
+                company=Company.objects.get(id=job['company']),
+                salary_min=job['salary_from'],
+                salary_max=job['salary_to'],
+                published_at=job['posted'],
+                skills=job['skills'],
+                description=job['description'],
+            )
