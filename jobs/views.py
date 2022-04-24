@@ -41,10 +41,8 @@ def vacancy_view(request: WSGIRequest, id):
         vacancies = Vacancy.objects.get(id=id)
     except Vacancy.DoesNotExist:
         raise Http404
-    skill = vacancies.skills.split(', ')
     return render(request, 'vacancy.html', context={
         'vacancies': vacancies,
-        'skill': skill,
     })
 
 
