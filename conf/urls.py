@@ -16,13 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from jobs.views import index_view, company_view, vacancy_view, vacancies_view, vacancies_cat_view
+from accounts.views import Register
+from jobs.views import index_view, company_view, vacancy_view, vacancies_view, vacancies_cat_view, vacancies_send_view, \
+    mycompany_start_view, mycompany_create_view, mycompany_view, mycompany_vacancies_view, \
+    mycompany_vacancies_create_view, mycompany_vacancy_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index_view, name='index'),
-    path('vacancies/cat/<str:code>/', vacancies_cat_view, name='vacancies_cat_name'),
+    path('vacancies/cat/<str:code>/', vacancies_cat_view, name='vacancies_cat'),
     path('vacancies/', vacancies_view, name='vacancies'),
-    path('companies/<int:id>/', company_view, name='companies_name'),
-    path('vacancies/<int:id>/', vacancy_view, name='vacancies_num'),
+    path('companies/<int:id>/', company_view, name='company'),
+    path('vacancies/<int:id>/', vacancy_view, name='vacancy'),
+    path('vacancies/<int:id>/send/', vacancies_send_view, name='vacancies_send'),
+    path('mycompany/start/', mycompany_start_view, name='mycompany_start'),
+    path('mycompany/create/', mycompany_create_view, name='mycompany_create'),
+    path('mycompany/', mycompany_view, name='mycompany'),
+    path('mycompany/vacancies/', mycompany_vacancies_view, name='mycompany_vacancies'),
+    path('mycompany/vacancies/create/', mycompany_vacancies_create_view, name='mycompany_vacancies_create'),
+    path('mycompany/vacancies/<int:id>/', mycompany_vacancy_view, name='mycompany_vacancy'),
+    # path('login', LoginFormView.as_view(), name='login'),
+    path('register/', Register.as_view()),
 ]

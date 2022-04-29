@@ -60,11 +60,45 @@ def company_view(request: WSGIRequest, id):
         'vacancies': vacancies,
     })
 
-# def company_create_view(request: WSGIRequest):
-#     return render(request, 'company_create.html')
-#
-#
-# def company_edit_view(request: WSGIRequest):
-#     return render(request, 'company_edit.html')
-#
-#
+
+def vacancies_send_view(request: WSGIRequest, id):
+    try:
+        vacancies = Vacancy.objects.get(id=id)
+    except Vacancy.DoesNotExist:
+        raise Http404
+    return render(request, 'sent.html', context={
+        'vacancies': vacancies,
+    })
+
+
+def mycompany_start_view(request: WSGIRequest):
+    return render(request, 'company-create.html')
+
+
+def mycompany_create_view(request: WSGIRequest):
+    return render(request, 'company-edit.html')
+
+
+def mycompany_view(request: WSGIRequest):
+    return render(request, 'company-edit.html')
+
+
+def mycompany_vacancies_view(request: WSGIRequest):
+    return render(request, 'vacancy-list.html')
+
+
+def mycompany_vacancies_create_view(request: WSGIRequest):
+    return render(request, 'vacancy-edit.html')
+
+
+def mycompany_vacancy_view(request: WSGIRequest, id):
+    return render(request, 'vacancy-edit.html')
+
+
+def login_view(request: WSGIRequest):
+    return render(request, 'login.html')
+
+
+def register_view(request: WSGIRequest):
+    return render(request, 'register.html')
+
